@@ -3,32 +3,23 @@ use std::collections::HashMap;
 advent_of_code::solution!(1);
 
 pub fn part_one(input: &str) -> Option<u32> {
-    // println!("{}", input);
     let mut column1 = Vec::new();
     let mut column2 = Vec::new();
 
-    for line in input.lines(){
-        // let line = line?;
+    for line in input.lines() {
         let numbers: Vec<i32> = line
             .split_whitespace()
             .filter_map(|s| s.parse().ok())
             .collect();
 
-        if numbers.len() == 2 { // Ensure we have two numbers
-            column1.push(numbers[0].clone());
-            column2.push(numbers[1].clone());
+        if numbers.len() == 2 {
+            column1.push(numbers[0]);
+            column2.push(numbers[1]);
         }
     }
-    println!("{:?}", column1);
-    println!("{:?}", column2);
 
-    column1.sort();//sort_by(|a, b| a.cmp(b));
-    column2.sort();// (|a, b| a.cmp(b));
-
-    // let result:i32 = column1.iter()
-    //     .zip(column1.iter())
-    //     .map(|(&left, &right)| (left - right).abs())
-    //     .sum();
+    column1.sort();
+    column2.sort();
     let mut result: i32 = 0;
     for i in 0..column1.len() {
         let left = column1[i];
@@ -43,16 +34,15 @@ pub fn part_two(input: &str) -> Option<u32> {
     let mut column1 = Vec::new();
     let mut column2 = Vec::new();
 
-    for line in input.lines(){
-        // let line = line?;
+    for line in input.lines() {
         let numbers: Vec<i32> = line
             .split_whitespace()
             .filter_map(|s| s.parse().ok())
             .collect();
 
         if numbers.len() == 2 {
-            column1.push(numbers[0].clone());
-            column2.push(numbers[1].clone());
+            column1.push(numbers[0]);
+            column2.push(numbers[1]);
         }
     }
     // println!("{:?}", column1);
@@ -67,11 +57,9 @@ pub fn part_two(input: &str) -> Option<u32> {
     }
 
     let mut result: i32 = 0;
-    for i in 0..column1.len() {
-        let left = column1[i];
-
+    for left in column1 {
         let count = count_map.get(&left).unwrap_or(&0);
-        result += left *count;
+        result += left * count;
     }
 
     Some(result as u32)
