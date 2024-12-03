@@ -30,7 +30,8 @@ pub fn part_two(input: &str) -> Option<u32> {
     let pattern = Regex::new(r"mul\((\d+),(\d+)\)|don't\(\)|do\(\)").unwrap();
     let mut is_enabled = true;
 
-    let result = pattern.captures_iter(input)
+    let result = pattern
+        .captures_iter(input)
         .filter_map(|captures| {
             if let (Some(x), Some(y)) = (captures.get(1), captures.get(2)) {
                 if is_enabled {
@@ -66,7 +67,9 @@ mod tests {
 
     #[test]
     fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));
+        let result = part_two(&advent_of_code::template::read_file_part(
+            "examples", DAY, 2,
+        ));
         assert_eq!(result, Some(48));
     }
 }
