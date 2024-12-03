@@ -40,7 +40,7 @@ fn checking_level(numbers: &Vec<i32>) -> bool {
 
         let diff = (next - curr).abs();
 
-        if diff < 1 || diff > 3 {
+        if !(1..=3).contains(&diff) {
             //unsafe
             return false
         }
