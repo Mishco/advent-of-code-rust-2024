@@ -1,46 +1,32 @@
 advent_of_code::solution!(2);
 
 pub fn part_one(input: &str) -> Option<u32> {
-    //increasing , decs
     let mut safe_count = 0;
-    let mut unsafe_count = 0;
-    for line in input.lines() {
-        println!("{}", line);
+    // let mut unsafe_count = 0;
+    // input.lines().map(|line| {
+    //     let numbers = line.split_whitespace().map(|item| {
+    //         item.parse::<u32>().unwrap()
+    //     }).collect();
+    //     if checking_level(numbers) {
+    //         safe_count += 1
+    //     }
+    // }).sum();
 
-        let numbers: Vec<i32> = line.split_whitespace().map(|item| {
-            item.parse::<i32>().unwrap()
+
+    for line in input.lines() {
+        // println!("{}", line);
+
+        let numbers: Vec<i32> = line.split_whitespace().filter_map(|item| {
+            item.parse::<i32>().ok()
         }).collect();
 
         if checking_level(&numbers) {
             safe_count += 1;
-        } else {
-            unsafe_count += 1;
         }
     }
 
-    println!("{}",safe_count);
-        // if let Some(value) = checking_level(numbers) {
-        //     return value;
-        // }
-
-        // if numbers.iter().max().unwrap() - numbers.iter().min().unwrap() > 3 {
-        //     // unsafe
-        //     unsafe_count+=1;
-        // } else {
-        //     safe_count+=1;
-        // }
-
-        // if let (Some(max), Some(min)) = (numbers.iter().max(), numbers.iter().min()) {
-        //     if max - min > 3 {
-        //         unsafe_count += 1;
-        //     } else {
-        //         safe_count += 1;
-        //     }
-        // }
-
-
+    // println!("{}",safe_count);
     Some(safe_count as u32)
-
 }
 
 fn checking_level(numbers: &Vec<i32>) -> bool {
@@ -56,24 +42,18 @@ fn checking_level(numbers: &Vec<i32>) -> bool {
 
         if diff < 1 || diff > 3 {
             //unsafe
-            // unsafe_count += 1;
             return false
         }
 
         if curr < next {
             //decreasing
-            // safe_count += 1;
             is_decreasing = false;
-            // return false;
         } else if curr > next {
             //increas
-            // safe_count += 1;
             is_increasing= false;
-            // return Some(false)
         } else {
             // nochagning
             return false;
-            // return Some(false);
         }
     }
     is_increasing || is_decreasing
@@ -81,9 +61,9 @@ fn checking_level(numbers: &Vec<i32>) -> bool {
 
 pub fn part_two(input: &str) -> Option<u32> {
     let mut safe_count = 0;
-    let mut unsafe_count = 0;
+    // let mut unsafe_count = 0;
     for line in input.lines() {
-        println!("{}", line);
+        // println!("{}", line);
 
         let numbers: Vec<i32> = line.split_whitespace().map(|item| {
             item.parse::<i32>().unwrap()
@@ -99,22 +79,15 @@ pub fn part_two(input: &str) -> Option<u32> {
 
 
                 if checking_level(&cleaned_level) {
-                    //
                     safe_count += 1;
                     break;
                 }
             }
-            // not safe for sure
-            unsafe_count += 1;
+            // unsafe_count += 1;
         }
-        // if checking_level(&numbers) {
-        //     safe_count += 1;
-        // } else {
-        //     unsafe_count += 1;
-        // }
     }
 
-    println!("{}",safe_count);
+    // println!("{}",safe_count);
     Some(safe_count as u32)
 }
 
