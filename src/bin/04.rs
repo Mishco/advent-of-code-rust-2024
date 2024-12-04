@@ -1,6 +1,6 @@
 advent_of_code::solution!(4);
 
-const DIRECTIONS: [(isize, isize); 8] = [
+const DIRECTIONS: [(i32, i32); 8] = [
     (0, 1),
     (1, 0),
     (1, 1),
@@ -11,57 +11,46 @@ const DIRECTIONS: [(isize, isize); 8] = [
     (-1, 1),
 ];
 
-fn count_xmas_occurrences(grid: Vec<Vec<char>>, target: &str) -> usize {
-    let rows = grid.len();
-    let cols = grid.len();
-    let mut count = 0;
+fn count_xmas_occurrences(grid: Vec<Vec<char>>, word: &str) -> usize {
+    let mut result: u32 = 0;
+    let word_length: usize = word.chars().count();
 
-    for i in 0..rows {
-        for j in 0..cols {
-            for &(dx, dy) in &DIRECTIONS {
-                count += check_direction(&grid, i, j, dx, dy, target);
+    for y in 0..grid.len() {
+        for x in 0..grid.len() {
+            if grid[y][x] == word.chars().next().unwrap() {
+                for &d in &DIRECTIONS {
+                    let mut found = true;
+
+                    for j in 1..word_length {
+                        let nx = x as i32 + d.0 * j as i32;
+                        let ny = y as i32 + d.1 * j as i32;
+
+                        if nx < 0
+                            || ny < 0
+                            || nx >= grid[0].len() as i32
+                            || ny >= grid.len() as i32
+                            || grid[ny as usize][nx as usize] != word.chars().nth(j).unwrap()
+                        {
+                            found = false; // If any character does not match, break
+                            break;
+                        }
+                    }
+
+                    if found {
+                        result += 1;
+                    }
+                }
             }
         }
     }
 
-    count
+    result as usize
 }
 
-fn check_direction(
-    grid: &[Vec<char>], //&Vec<Vec<char>>,
-    start_x: usize,
-    start_y: usize,
-    dx: isize,
-    dy: isize,
-    target: &str,
-) -> usize {
-    let mut x = start_x as isize;
-    let mut y = start_y as isize;
-    let target_len = target.len();
-    let mut chars = Vec::new();
-
-    for _ in 0..target_len {
-        // Check we are within table
-        if x < 0 || y < 0 || x >= grid.len() as isize || y >= grid[0].len() as isize {
-            return 0;
-        }
-        chars.push(grid[x as usize][y as usize]);
-        x += dx;
-        y += dy;
-    }
-
-    if chars.iter().collect::<String>() == target {
-        return 1;
-    }
-
-    0
-}
-
-pub fn part_one(input: &str) -> Option<u32> {
+pub fn part_one(input: &str) -> Option<usize> {
     let chars = input.lines().map(|line| line.chars().collect()).collect();
     let result = count_xmas_occurrences(chars, "XMAS");
-
-    Some(result as u32)
+    Some(result)
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
