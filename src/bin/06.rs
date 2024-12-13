@@ -36,7 +36,7 @@ fn part1(mtx: &Mtx) -> Option<usize> {
         while let Some('#') = get(mtx, r + dr, c + dc, r_max, c_max) {
             (dr, dc) = turn_right((dr, dc));
         }
-        if let None = get(mtx, r + dr, c + dc, r_max, c_max) {
+        if get(mtx, r + dr, c + dc, r_max, c_max).is_none() {
             break;
         }
         (r, c) = (r + dr, c + dc);
@@ -62,9 +62,12 @@ fn obstacle_loops(mtx: &mut Mtx, r: i32, c: i32, dr: i32, dc: i32, r_max: i32, c
             while let Some('#') = get(mtx, r + dr, c + dc, r_max, c_max) {
                 (dr, dc) = turn_right((dr, dc));
             }
-            if let None = get(mtx, r + dr, c + dc, r_max, c_max) {
+            if get(mtx, r + dr, c + dc, r_max, c_max).is_none() {
                 break;
             }
+            // if let None = get(mtx, r + dr, c + dc, r_max, c_max) {
+            //     break;
+            // }
             (r, c) = (r + dr, c + dc);
         }
     }
@@ -86,7 +89,7 @@ fn part2(mtx: &mut Mtx) -> Option<usize> {
         while let Some('#') = get(mtx, r + dr, c + dc, r_max, c_max) {
             (dr, dc) = turn_right((dr, dc));
         }
-        if let None = get(mtx, r + dr, c + dc, r_max, c_max) {
+        if get(mtx, r + dr, c + dc, r_max, c_max).is_none() {
             break;
         }
         (r, c) = (r + dr, c + dc);
@@ -110,8 +113,7 @@ pub fn part_one(input: &str) -> Option<usize> {
         .lines()
         .map(|line| line.chars().collect::<Vec<_>>())
         .collect::<Mtx>();
-    let result = part1(&input);
-    result
+    part1(&input)
 }
 
 pub fn part_two(input: &str) -> Option<usize> {
@@ -119,9 +121,7 @@ pub fn part_two(input: &str) -> Option<usize> {
         .lines()
         .map(|line| line.chars().collect::<Vec<_>>())
         .collect::<Mtx>();
-    let result = part2(&mut input);
-    // println!("Part2: {:?}", result);
-    result
+    part2(&mut input)
 }
 
 #[cfg(test)]

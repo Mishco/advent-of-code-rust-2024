@@ -2,9 +2,7 @@ advent_of_code::solution!(10);
 
 use std::collections::HashMap;
 
-const DIRECTIONS: [(isize, isize); 4] = [(0, -1), (-1, 0), (1, 0), (0, 1)]; // Left, Up, Down, Right
-// Left, Up, Down, Right
-// let directions = [(0, -1), (-1, 0), (1, 0), (0, 1)];
+const DIRECTIONS: [(isize, isize); 4] = [(0, -1), (-1, 0), (1, 0), (0, 1)];
 
 pub fn part_one_another(input: &str) -> Option<u32> {
     let matrix: Vec<Vec<u32>> = input
@@ -39,8 +37,7 @@ pub fn part_one_another(input: &str) -> Option<u32> {
         let mut stack: Vec<(usize, usize)> = vec![];
         stack.push((x, y));
         let mut existing: HashMap<(usize, usize), bool> = HashMap::new();
-        while stack.len() > 0 {
-            let (cur_x, cur_y) = stack.pop().unwrap();
+        while let Some((cur_x, cur_y)) = stack.pop() {
             let cur_val = matrix[cur_x][cur_y];
             if cur_val == 9 {
                 existing.insert((cur_x, cur_y), true);
@@ -99,13 +96,11 @@ pub fn part_two(input: &str) -> Option<usize> {
         })
         .collect();
 
-
     for (x, y) in trailheads {
         let mut stack: Vec<(usize, usize)> = vec![];
         stack.push((x, y));
 
-        while stack.len() > 0 {
-            let (current_x, current_y) = stack.pop().unwrap();
+        while let Some((current_x, current_y)) = stack.pop() {
             let value = matrix[current_x][current_y];
             if value == 9 {
                 result += 1;
@@ -116,10 +111,11 @@ pub fn part_two(input: &str) -> Option<usize> {
                 let new_x: usize = (current_x as isize + dx) as usize;
                 let new_y: usize = (current_y as isize + dy) as usize;
 
-                if new_x < matrix.len() && new_y < matrix[0].len() {
-                    if matrix[new_x][new_y] == value + 1 {
-                        stack.push((new_x, new_y));
-                    }
+                if new_x < matrix.len()
+                    && new_y < matrix[0].len()
+                    && matrix[new_x][new_y] == value + 1
+                {
+                    stack.push((new_x, new_y));
                 }
             }
         }

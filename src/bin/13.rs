@@ -20,7 +20,8 @@ pub fn part_one(input: &str) -> Option<usize> {
             .split(|c: char| !c.is_ascii_digit())
             .filter(|w| !w.is_empty())
             .map(|w| w.parse().unwrap())
-            .collect_tuple() {
+            .collect_tuple()
+        {
             Some(x) => x,
             None => continue,
         };
@@ -38,7 +39,8 @@ pub fn part_two(input: &str) -> Option<usize> {
             .split(|c: char| !c.is_ascii_digit())
             .filter(|w| !w.is_empty())
             .map(|w| w.parse().unwrap())
-            .collect_tuple( ) {
+            .collect_tuple()
+        {
             Some(x) => x,
             None => continue,
         };
