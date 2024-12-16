@@ -15,7 +15,7 @@ pub fn part_one(input: &str) -> Option<usize> {
     let mut result = 0;
     // \n\r -- Win OS
     // \n\n -- Unix OS
-    for line in input.split("\n\r") {
+    for line in input.split("\n\n") {
         let (x1, x2, y1, y2, z1, z2) = match line
             .split(|c: char| !c.is_ascii_digit())
             .filter(|w| !w.is_empty())
@@ -34,7 +34,7 @@ pub fn part_two(input: &str) -> Option<usize> {
     let mut result = 0;
     // \n\r -- Win OS
     // \n\n -- Unix OS
-    for line in input.split("\n\r") {
+    for line in input.split("\n\n") {
         let (x1, x2, y1, y2, z1, z2) = match line
             .split(|c: char| !c.is_ascii_digit())
             .filter(|w| !w.is_empty())
