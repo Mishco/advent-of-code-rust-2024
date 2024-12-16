@@ -9,6 +9,7 @@ enum Direction {
     Right,
 }
 
+#[warn(clippy::unnecessary_filter_map)]
 fn parse_movements(input: &str) -> Vec<Direction> {
     let movements: Vec<Direction> = input
         .lines()
