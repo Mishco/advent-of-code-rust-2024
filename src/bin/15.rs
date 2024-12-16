@@ -50,7 +50,7 @@ pub fn part_one(input: &str) -> Option<usize> {
         .trim()
         .lines()
         .filter_map(|line| {
-            if line.trim() != "" && line.trim().chars().next().unwrap() == '#' {
+            if line.trim() != "" && line.trim().starts_with('#') {
                 Some(line.trim().chars().collect())
             } else {
                 None
@@ -111,9 +111,9 @@ pub fn part_two(input: &str) -> Option<usize> {
         .trim()
         .lines()
         .filter_map(|line| {
-            if line.trim() != "" && line.trim().chars().next().unwrap() == '#' {
+            if line.trim() != "" && line.trim().starts_with('#') {
                 let mut row: Vec<char> = vec![];
-                line.trim().chars().into_iter().for_each(|c| match c {
+                line.trim().chars().for_each(|c| match c {
                     '#' => {
                         row.push('#');
                         row.push('#');
@@ -195,7 +195,7 @@ pub fn part_two(input: &str) -> Option<usize> {
                     connected.push((npi, npj));
                     stack.push((npi, npj));
                     let mut can_move = true;
-                    while stack.len() > 0 {
+                    while !stack.is_empty() {
                         let (current_i, current_j) = stack.pop().unwrap();
                         let i1 = (current_i as isize + i) as usize;
                         let j1 = (current_j as isize + j) as usize;
@@ -222,7 +222,7 @@ pub fn part_two(input: &str) -> Option<usize> {
                     }
 
                     if can_move {
-                        while connected.len() > 0 {
+                        while !connected.is_empty() {
                             let (current_i, current_j) = connected.pop().unwrap();
                             if matrix[current_i][current_j] != '['
                                 && matrix[current_i][current_j] != ']'
@@ -266,19 +266,13 @@ pub fn part_two(input: &str) -> Option<usize> {
             panic!("Unexpected char");
         }
     }
-    let mut res = 0;
+    let result = (0..matrix.len())
+        .cartesian_product(0..matrix[0].len())
+        .filter(|&(r, c)| matches!(matrix[r][c], 'O' | '['))
+        .map(|(r, c)| r * 100 + c)
+        .sum();
 
-    for i in 0..matrix.len() {
-        for j in 0..matrix[0].len() {
-            if matrix[i][j] == 'O' {
-                res += i * 100 + j;
-            } else if matrix[i][j] == '[' {
-                res += i * 100 + j;
-            }
-        }
-    }
-
-    Some(res)
+    Some(result)
 }
 #[cfg(test)]
 mod tests {
