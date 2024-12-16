@@ -196,7 +196,6 @@ pub fn part_two(input: &str) -> Option<usize> {
                     stack.push((npi, npj));
                     let mut can_move = true;
                     while let Some((current_i, current_j)) = stack.pop() {
-                        
                         let i1 = (current_i as isize + i) as usize;
                         let j1 = (current_j as isize + j) as usize;
                         let j2 = match matrix[current_i][current_j] {
@@ -223,7 +222,6 @@ pub fn part_two(input: &str) -> Option<usize> {
 
                     if can_move {
                         while let Some((current_i, current_j)) = connected.pop() {
-                            
                             if matrix[current_i][current_j] != '['
                                 && matrix[current_i][current_j] != ']'
                             {
