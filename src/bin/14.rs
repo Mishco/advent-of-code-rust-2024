@@ -13,13 +13,13 @@ struct Robot {
 }
 
 pub fn part_one(input: &str) -> Option<usize> {
-    let lines = input.lines().map(|line| line).collect_vec();
+    let lines = input.lines().collect_vec();
     let regex = Regex::new(r"p=(-?\d+),(-?\d+) v=(-?\d+),(-?\d+)").unwrap();
 
     let robots = lines
         .iter()
         .map(|line| {
-            let caps_iter = regex.captures(&line).unwrap();
+            let caps_iter = regex.captures(line).unwrap();
             let mut caps = caps_iter
                 .iter()
                 .skip(1)
