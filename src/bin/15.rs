@@ -36,7 +36,7 @@ fn get_current_move(m: &Direction) -> (isize, isize) {
     (i, j)
 }
 
-fn find_robot_position(matrix: &Vec<Vec<char>>) -> Option<(usize, usize)> {
+fn find_robot_position(matrix: &[Vec<char>]) -> Option<(usize, usize)> {
     for (row_index, row) in matrix.iter().enumerate() {
         if let Some(col_index) = row.iter().position(|&c| c == '@') {
             return Some((row_index, col_index));
@@ -195,8 +195,8 @@ pub fn part_two(input: &str) -> Option<usize> {
                     connected.push((npi, npj));
                     stack.push((npi, npj));
                     let mut can_move = true;
-                    while !stack.is_empty() {
-                        let (current_i, current_j) = stack.pop().unwrap();
+                    while let Some((current_i, current_j)) = stack.pop() {
+                        
                         let i1 = (current_i as isize + i) as usize;
                         let j1 = (current_j as isize + j) as usize;
                         let j2 = match matrix[current_i][current_j] {
@@ -222,8 +222,8 @@ pub fn part_two(input: &str) -> Option<usize> {
                     }
 
                     if can_move {
-                        while !connected.is_empty() {
-                            let (current_i, current_j) = connected.pop().unwrap();
+                        while let Some((current_i, current_j)) = connected.pop() {
+                            
                             if matrix[current_i][current_j] != '['
                                 && matrix[current_i][current_j] != ']'
                             {
