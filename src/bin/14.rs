@@ -12,6 +12,10 @@ struct Robot {
     velocity: (i32, i32),
 }
 
+type Position = (i32, i32);
+type Velocity = (i32, i32);
+type RobotType = (Position, Velocity);
+
 pub fn part_one(input: &str) -> Option<usize> {
     let lines = input.lines().collect_vec();
     let regex = Regex::new(r"p=(-?\d+),(-?\d+) v=(-?\d+),(-?\d+)").unwrap();
@@ -51,7 +55,7 @@ pub fn part_one(input: &str) -> Option<usize> {
     let total = quadrants.values().product::<usize>();
     Some(total)
 }
-fn simulate_robots(robots: &[((i32, i32), (i32, i32))], t: i32) -> Vec<(i32, i32)> {
+fn simulate_robots(robots: &[RobotType], t: i32) -> Vec<(i32, i32)> {
     let max_x = 101;
     let max_y = 103;
 
