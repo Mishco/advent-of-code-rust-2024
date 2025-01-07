@@ -29,5 +29,7 @@ tinyjson = "2.5.1"
 
 # Solution dependencies
 regex = "1.5"
-itertools = "0.13.0"
-rustc-hash = "1.1.0"
+itertools = "0.13"
+rustc-hash = "2.1.0"
+pathfinding = "4.12.0"
+hashbrown = "0.15.2"
