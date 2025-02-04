@@ -25,9 +25,10 @@ fn is_available_to_construct(design: &str, patterns: &Vec<&str>) -> bool {
 
     for pattern in patterns {
         if design.starts_with(pattern) {
-            let remaining_design = &design[pattern.len()..];
-            if is_available_to_construct(remaining_design, patterns) {
-                return true;
+            if let Some(remaining_design) = design.strip_prefix(pattern) {
+                if is_available_to_construct(remaining_design, patterns) {
+                    return true;
+                }
             }
         }
     }
@@ -47,7 +48,7 @@ fn count_possible_designs(available_patterns: Vec<&str>, desired_designs: Vec<&s
 
 pub fn part_one(input: &str) -> Option<usize> {
     // let available_patterns = vec!["r", "wr", "b", "g", "bwu", "rb", "gb", "br"];
-    
+
     // let desired_designs = vec![
     //     "brwrr",
     //     "bggr",

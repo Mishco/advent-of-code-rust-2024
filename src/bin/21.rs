@@ -56,9 +56,9 @@ fn complexity(from: char, to: char, mut robot_count: i32) -> u64 {
     let dy_dir = if dy > 0 { "v" } else { "^" };
 
     // Create the steps vector
-    let steps: Vec<&str> = vec![dx_dir; dx.abs() as usize]
+    let steps: Vec<&str> = vec![dx_dir; dx.unsigned_abs() as usize]
         .into_iter()
-        .chain(vec![dy_dir; dy.abs() as usize])
+        .chain(vec![dy_dir; dy.unsigned_abs() as usize])
         .collect();
 
     let mut paths = vec![];
