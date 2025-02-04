@@ -39,7 +39,8 @@ fn compute_distances(
         for (dr, dc) in DIRECTIONS {
             let (rr, cc) = (r.wrapping_add(dr as usize), c.wrapping_add(dc as usize));
             if g.get(rr)
-                .and_then(|row| row.get(cc)).is_some_and(|&cell| cell != b'#')
+                .and_then(|row| row.get(cc))
+                .is_some_and(|&cell| cell != b'#')
             {
                 q.push_back((rr, cc, n + 1));
             }

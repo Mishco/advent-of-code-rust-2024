@@ -111,7 +111,6 @@ fn complexity(from: char, to: char, mut robot_count: i32) -> u64 {
         .expect("Problem finding min")
 }
 
-
 fn is_valid_path(path: &str, start: Pos, layout: &HashMap<char, Pos>) -> bool {
     let mut current_pos = start;
     for c in path.chars() {
